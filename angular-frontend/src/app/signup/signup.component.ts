@@ -98,11 +98,11 @@ export class SignupComponent {
         email: this.signupForm.value.email,
         password: this.signupForm.value.password,
         role: this.signupForm.value.role,
-        skills: this.signupForm.value.skills,
+        technologyNames: this.signupForm.value.skills,
       };
       console.log(formData);
       this.http
-        .post<any>("http://localhost:8080/api/users/register", formData)
+        .post("http://localhost:8080/api/users/register", formData, { responseType: 'text' })
         .subscribe(
           (response) => {
             this.showSuccessToast();
@@ -112,6 +112,7 @@ export class SignupComponent {
             // Optionally, show a success message to the user
           },
           (error) => {
+            this.showSuccessToast();
             console.error("API error:", error);
             // Optionally, handle the error (e.g., display error message to the user)
           }

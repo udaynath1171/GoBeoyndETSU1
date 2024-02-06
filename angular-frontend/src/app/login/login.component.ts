@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -17,7 +18,7 @@ export class LoginComponent {
   loginForm!: FormGroup; // Use the non-null assertion operator
 
   hide = true;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -43,18 +44,19 @@ export class LoginComponent {
     console.log("Logging in...");
     if (this.loginForm.valid) {
       const formData = {
-        username: this.loginForm.value.email,
+        email: this.loginForm.value.email,
         password: this.loginForm.value.password,
       };
       console.log(formData);
       // Make HTTP POST request to your API
       this.http
-        .post<any>("http://localhost:8080/api/users/login", formData)
+        .post("http://localhost:8080/api/users/login", formData, { responseType: 'text' })
         .subscribe(
           (response) => {
             console.log("API response:", response);
             // Optionally, reset the form after successful login
             this.loginForm.reset();
+            this.router.navigate(['/home']); 
             // Optionally, redirect the user to another page
           },
           (error) => {
