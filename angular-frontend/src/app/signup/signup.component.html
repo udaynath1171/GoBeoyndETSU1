@@ -28,6 +28,7 @@
                 <input
                   type="email"
                   name="username"
+                  formControlName="name"
                   matInput
                   placeholder="Ex. pat@example.com"
                   required
@@ -43,6 +44,7 @@
                 <input
                   type="email"
                   name="username"
+                  formControlName="email"
                   matInput
                   placeholder="Ex. pat@example.com"
                   required
@@ -102,23 +104,33 @@
             <mat-form-field class="form-input" appearance="fill">
               <mat-label>User Role</mat-label>
               <mat-select formControlName="role" required>
-                <mat-option value="admin">Admin</mat-option>
                 <mat-option value="student">Student</mat-option>
                 <mat-option value="faculty">Faculty</mat-option>
                 <mat-option value="client">Client</mat-option>
-              </mat-select> </mat-form-field
+              </mat-select>
+              <mat-error
+                *ngIf="signupForm.get('role')?.hasError('required')"
+                style="color: #ff8c00"
+                >User Role is required</mat-error
+              > </mat-form-field
             ><br />
 
             <!-- Skills -->
             <mat-form-field class="form-input" appearance="fill">
               <mat-label>Skills</mat-label>
-              <mat-select [formControl]="skills" multiple>
+              <mat-select [formControl]="skills" multiple required>
                 <mat-option
                   *ngFor="let skill of skillOptions"
                   [value]="skill"
                   >{{ skill }}</mat-option
                 >
-              </mat-select> </mat-form-field
+              </mat-select>
+              <mat-error
+                *ngIf="signupForm.get('skills')?.hasError('required')"
+                style="color: #ff8c00"
+              >
+                Skills are required
+              </mat-error> </mat-form-field
             ><br />
             <button class="sign-in-btn btn btn-primary" type="submit">
               Signup

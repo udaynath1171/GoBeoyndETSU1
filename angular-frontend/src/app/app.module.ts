@@ -12,6 +12,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { SignupComponent } from "./signup/signup.component";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignupComponent],
@@ -26,6 +28,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatSnackBarModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

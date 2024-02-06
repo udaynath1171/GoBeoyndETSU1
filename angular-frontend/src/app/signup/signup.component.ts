@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import {
   FormBuilder,
@@ -5,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-signup",
@@ -23,7 +25,11 @@ export class SignupComponent {
     "ReactJS",
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group(
@@ -75,8 +81,41 @@ export class SignupComponent {
 
     return this.email?.hasError("email") ? "Not a valid email" : "";
   }
+
+  showSuccessToast() {
+    console.log("success");
+    this.snackBar.open("Wait for admin's approval", "Close", {
+      duration: 5000, // Adjust the duration as needed
+      panelClass: ["success-toast"], // Optional: Add custom CSS class for styling
+    });
+  }
+
   signup() {
-    // Add your signup logic here
     console.log("Signing up...");
+    if (this.signupForm.valid) {
+      const formData = {
+        username: this.signupForm.value.name,
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        role: this.signupForm.value.role,
+        skills: this.signupForm.value.skills,
+      };
+      console.log(formData);
+      this.http
+        .post<any>("http://localhost:8080/api/users/register", formData)
+        .subscribe(
+          (response) => {
+            this.showSuccessToast();
+            console.log("API response:", response);
+            // Optionally, reset the form after successful submission
+            this.signupForm.reset();
+            // Optionally, show a success message to the user
+          },
+          (error) => {
+            console.error("API error:", error);
+            // Optionally, handle the error (e.g., display error message to the user)
+          }
+        );
+    }
   }
 }
