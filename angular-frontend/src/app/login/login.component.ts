@@ -8,6 +8,7 @@ import {
   FormGroup,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { AuthService } from "../auth.service";
 
 @Component({
   selector: "app-login",
@@ -18,10 +19,10 @@ export class LoginComponent {
   loginForm!: FormGroup; // Use the non-null assertion operator
 
   hide = true;
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private authService: AuthService,private router: Router) {}
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
+      email: new FormControl(""),
       password: new FormControl("", [Validators.required]),
     });
   }
@@ -49,8 +50,7 @@ export class LoginComponent {
       };
       console.log(formData);
       // Make HTTP POST request to your API
-      this.http
-        .post("http://localhost:8080/api/users/login", formData, { responseType: 'text' })
+      this.authService.login(formData)
         .subscribe(
           (response) => {
             console.log("API response:", response);

@@ -14,9 +14,14 @@ import { SignupComponent } from "./signup/signup.component";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { HttpClientModule } from "@angular/common/http";
+import { ApprovalDashboardComponent } from './approval-dashboard/approval-dashboard.component';
+import { MatTableModule } from "@angular/material/table";
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavigationComponent } from './navigation/navigation.component';
+
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, LoginComponent, SignupComponent, ApprovalDashboardComponent, NavigationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,6 +35,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatSelectModule,
     MatSnackBarModule,
     HttpClientModule,
+    MatTableModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
