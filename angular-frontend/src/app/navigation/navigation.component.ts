@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { UserService } from '../user.service';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -14,7 +15,7 @@ export class NavigationComponent implements OnInit {
   userEmail: string="";
   isAdmin: boolean=false;
 
-  constructor(private authService: AuthService,private userService: UserService) { }
+  constructor(private authService: AuthService,private userService: UserService,private router: Router) { }
 
   ngOnInit(): void {
     this.authService.isAuthenticated().subscribe(isLoggedIn => {
@@ -33,5 +34,7 @@ export class NavigationComponent implements OnInit {
 
   logout(){
     this.authService.logout();
+    window.location.reload();
+    this.router.navigate(['/login']);
   }
 }

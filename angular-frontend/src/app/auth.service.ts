@@ -16,6 +16,12 @@ export class AuthService {
     if (isLoggedIn) {
       this.loggedIn.next(true);
     }
+
+    // Retrieve user email from local storage
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      this.userEmail.next(userEmail);
+    }
   }
 
   login(formData: { email: any; password: any; }): Observable<any> {
@@ -23,6 +29,7 @@ export class AuthService {
       tap(() => {
         // Update the loggedIn BehaviorSubject upon successful login
         this.loggedIn.next(true);
+        localStorage.setItem('userEmail', formData.email);
         this.userEmail.next(formData.email);
         // Optionally, save the authentication state to localStorage
         localStorage.setItem('isLoggedIn', 'true');
@@ -36,6 +43,7 @@ export class AuthService {
     this.userEmail.next('');
     // Optionally, remove the authentication state from localStorage
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
   }
 
   isAuthenticated(): Observable<boolean> {
