@@ -18,10 +18,12 @@ import { ApprovalDashboardComponent } from './approval-dashboard/approval-dashbo
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ProjectFormComponent } from './project-form/project-form.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent, ApprovalDashboardComponent, NavigationComponent],
+  declarations: [AppComponent, LoginComponent, SignupComponent, ApprovalDashboardComponent, NavigationComponent, ProjectFormComponent, ProjectListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -40,8 +40,8 @@ export class SignupComponent {
           "",
           [
             Validators.required,
-            Validators.minLength(8),
-            this.passwordPatternValidator,
+            // Validators.minLength(8),
+            // this.passwordPatternValidator,
           ],
         ],
         confirmPassword: ["", Validators.required],

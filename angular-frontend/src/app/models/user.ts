@@ -1,5 +1,6 @@
 import { Technology } from "./technology";
 
+
 export interface User {
     id: number;
     username: string;
